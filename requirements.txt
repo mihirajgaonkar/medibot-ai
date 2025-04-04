@@ -6,7 +6,7 @@ langchain_text_splitters
 langchain-ollama
 langchain_core
 faiss-cpu
-tqdm
+tqdm 
 sentence-transformers
 transformers
 pypdf

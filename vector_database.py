@@ -3,7 +3,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from tqdm import tqdm
-import os
+import os 
 
 # Config
 PDF_DIR = r'C:/D/Other/AI PROJECTS/AI Hedge fund/medibot-ai/pdfs-test' #MENTION LOCAL PATH FOR PDF DIRECTORY
