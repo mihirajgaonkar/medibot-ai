@@ -33,7 +33,7 @@ if ask_question:
                 st.chat_message("user").write(user_query)
 
                 # Run RAG Pipeline
-                think, answer = answer_query(query=user_query)
+                think, answer, sources = answer_query(query=user_query)
 
                 # Show AI response (Answer)
                 st.chat_message("assistant").write(answer)
@@ -42,5 +42,11 @@ if ask_question:
                 if think:
                     with st.expander("🤖 Model reasoning", expanded=False):
                         st.markdown(f"<div style='color: gray; font-size: 0.9em'>{think}</div>", unsafe_allow_html=True)
+
+                if sources:
+                    st.markdown("**🔍 Sources:**")
+                    for src in set(sources):  # remove duplicates
+                        st.markdown(f"- {src}")
+
         except Exception as e:
             st.error(f"❌ Error: {str(e)}")

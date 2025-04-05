@@ -61,10 +61,21 @@ def answer_query(query):
 
     # Parse the content
     think, answer = parse_response(response.content)
-    return think, answer
+        # Collect sources
+    sources = []
+    for doc in retrieved_docs:
+        src = doc.metadata.get("source", "unknown")
+        page = doc.metadata.get("page", "n/a")
+        sources.append(f"{src} (Page {page})")
+
+    return think, answer, sources
 
 # === Step 5: Run ===
 if __name__ == "__main__":
-    question = "tell me what is mentioned about Rahul dravid in this code"
-    response = answer_query(question)
-    print("🧠 AI Answer:", response.content)
+    question = "tell me something about the author"
+    think, answer, sources = answer_query(question)
+    print("🧠 AI Answer:", answer)
+    print("🧩 Model reasoning (think):", think)
+    print("📚 Sources:")
+    for src in sources:
+        print("  -", src)

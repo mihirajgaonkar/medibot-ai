@@ -6,7 +6,7 @@ from tqdm import tqdm
 import os
 
 # Config
-PDF_DIR = r'C:/D/Other/AI PROJECTS/AI Hedge fund/medibot-ai/pdfs-test' #MENTION LOCAL PATH FOR PDF DIRECTORY
+PDF_DIR = r'C:/D/Other/AI PROJECTS/AI Hedge fund/medibot-ai/pdfs' #MENTION LOCAL PATH FOR PDF DIRECTORY
 FAISS_DB_PATH = "vectorstore/db_faiss" #MENTION LOCAL PATH FOR VECTOR DB
 
 # Step 0: Check if FAISS DB already exists
@@ -23,10 +23,16 @@ def load_pdfs(directory):
 
     for filename in pdf_files:
         file_path = os.path.join(directory, filename)
-        file_size_mb = os.path.getsize(file_path) / (1024 * 1024)
-        print(f"📄 Processing: {filename} ({file_size_mb:.1f} MB)")
+        pdf_loader = PyPDFLoader(file_path)
+        file_docs = pdf_loader.load()
 
-        try:
+    for i, doc in enumerate(file_docs):
+        doc.metadata["source"] = filename
+        doc.metadata["page"] = i + 1  # 1-indexed page number
+
+    documents.extend(file_docs)
+
+    try:
             pdf_loader = PyPDFLoader(file_path)
             file_docs = pdf_loader.load()
 
@@ -37,7 +43,7 @@ def load_pdfs(directory):
 
             print(f"✓ Extracted {len(file_docs)} pages from {filename}\n")
             documents.extend(file_docs)
-        except Exception as e:
+    except Exception as e:
             print(f"❌ Error processing {filename}: {str(e)}\n")
 
     return documents
