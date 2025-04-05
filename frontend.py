@@ -1,6 +1,6 @@
 #Step1 : Setup upload PDF functionality
 import os
-import streamlit as st
+import streamlit as st 
 from rag_pipeline import answer_query, retrieve_docs, llm_model
 
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"

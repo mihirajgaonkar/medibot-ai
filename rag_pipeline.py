@@ -4,7 +4,7 @@ from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 import os
-import re
+import re 
 
 # Load environment variables
 load_dotenv()
